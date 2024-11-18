@@ -70,7 +70,7 @@ export const {
       }
 
       if (session.user && token.role) {
-        session.user.role = token.role
+        session.user.role = token.role as UserRole
       }
 
       if (session.user && typeof token.isTwoFactorEnabled === 'boolean') {
@@ -110,6 +110,7 @@ export const {
       return token
     },
   },
+  // @ts-expect-error The PrismaAdapter type don't match, but it's ok
   adapter: PrismaAdapter(db),
   session: { strategy: 'jwt' },
   ...authConfig,
